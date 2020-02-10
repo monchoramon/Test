@@ -2,9 +2,9 @@
 -- ER/Studio 8.0 SQL Code Generation
 -- Company :      DEVRAM
 -- Project :      BD Test.DM1
--- Author :       Ramón
+-- Author :       Sensei-Ramón
 --
--- Date Created : Monday, February 10, 2020 15:05:53
+-- Date Created : Monday, February 10, 2020 17:21:09
 -- Target DBMS : MySQL 5.x
 --
 
@@ -13,7 +13,7 @@
 --
 
 CREATE TABLE datosfiscales(
-    kcvedatosfiscales    INT             NOT NULL,
+    kcvedatosfiscales    INT             AUTO_INCREMENT,
     orfc                 VARCHAR(15),
     orazonsocial         VARCHAR(300),
     rcveestado           INT,
@@ -34,11 +34,11 @@ CREATE TABLE datosfiscales(
 
 
 -- 
--- TABLE: estado 
+-- TABLE: estados 
 --
 
-CREATE TABLE estado(
-    kcveestado    INT             NOT NULL,
+CREATE TABLE estados(
+    kcveestado    INT             AUTO_INCREMENT,
     onombre       VARCHAR(150),
     istatus       VARCHAR(1),
     ifecins       DATETIME,
@@ -56,7 +56,7 @@ CREATE TABLE estado(
 --
 
 CREATE TABLE municipio(
-    kcvemunicipio    INT             NOT NULL,
+    kcvemunicipio    INT             AUTO_INCREMENT,
     rcveestado       INT,
     onombre          VARCHAR(200),
     istatus          VARCHAR(1),
@@ -76,7 +76,7 @@ CREATE TABLE municipio(
 --
 
 CREATE TABLE producto(
-    kcveproducto      INT               NOT NULL,
+    kcveproducto      INT               AUTO_INCREMENT,
     onombre           VARCHAR(200),
     oclave            VARCHAR(45),
     ocostounitario    DECIMAL(10, 2),
@@ -95,9 +95,9 @@ CREATE TABLE producto(
 -- TABLE: municipio 
 --
 
-ALTER TABLE municipio ADD CONSTRAINT Refestado1 
+ALTER TABLE municipio ADD CONSTRAINT Refestados1 
     FOREIGN KEY (kcveestado)
-    REFERENCES estado(kcveestado)
+    REFERENCES estados(kcveestado)
 ;
 
 
