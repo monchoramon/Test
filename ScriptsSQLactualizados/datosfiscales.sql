@@ -2,6 +2,9 @@
 -- Query: 
 -- Date: 2019-11-26 11:59
 */
+
+
+
 INSERT INTO `datosfiscales` (
 `kcvedatosfiscales`,
 `orfc`,
