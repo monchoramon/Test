@@ -17,6 +17,10 @@
 			$main->llenado_estados();
 		break;
 
+		case 3:
+			$main->llenado_municipios( @$_POST['params'] );
+		break;
+
 	}
 
 ?>

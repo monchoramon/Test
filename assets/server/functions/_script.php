@@ -20,13 +20,34 @@ class main{
 		$stmt = $this->conexion->prepare("SELECT kcveestado, onombre FROM estados");
 		$stmt->execute();
 
-		while ( $row = $stmt->fetch(2) ) {
+		while ( $row = $stmt->fetch(PDO::FETCH_NUM) ) {
 			$data[] = $row;
 		}
 
 			if( @$data ){
 				print_r(json_encode( array( 'data' => $data ) ));
 			}
+
+	}
+
+	public function llenado_municipios( $params ){
+
+		if( $params ){
+			$sql = "SELECT kcvemunicipio, onombre FROM municipio WHERE kcveestado = $params";
+		}else{
+			$sql = "SELECT kcvemunicipio, onombre FROM municipio";
+		}
+
+			$stmt = $this->conexion->prepare( $sql );
+			$stmt->execute();
+
+			while ( $row = $stmt->fetch(PDO::FETCH_NUM) ) {
+				$data[] = $row;
+			}
+
+				if( @$data ){
+					print_r(json_encode( array( 'data' => $data ) ));
+				}
 
 	}
 
