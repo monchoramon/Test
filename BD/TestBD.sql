@@ -4,7 +4,7 @@
 -- Project :      BD Test.DM1
 -- Author :       Sensei-Ramón
 --
--- Date Created : Monday, February 10, 2020 17:21:09
+-- Date Created : Monday, February 10, 2020 18:12:46
 -- Target DBMS : MySQL 5.x
 --
 
@@ -57,14 +57,13 @@ CREATE TABLE estados(
 
 CREATE TABLE municipio(
     kcvemunicipio    INT             AUTO_INCREMENT,
-    rcveestado       INT,
+    kcveestado       INT             NOT NULL,
     onombre          VARCHAR(200),
     istatus          VARCHAR(1),
     ifecins          DATETIME,
     iusrins          VARCHAR(45),
     ifecmod          DATETIME,
     iusrmod          VARCHAR(45),
-    kcveestado       INT             NOT NULL,
     PRIMARY KEY (kcvemunicipio)
 )ENGINE=INNODB
 ;
