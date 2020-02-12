@@ -21,6 +21,10 @@
 			$main->llenado_municipios( @$_POST['params'] );
 		break;
 
+		case 4:
+			$main->autocompletado_producto( @$_POST['params'] );
+		break;
+
 	}
 
 ?>

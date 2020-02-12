@@ -3,7 +3,7 @@
 	$("input[name=rfc]").on({
 		  keypress:function(){
 			  	if( $("input[name=rfc]").val().length > 1 ){
-		  			mandar_datos('#get_rfc', 'main', 1, 1, 1)
+		  			mandar_datos('', this.value, 'main', 1, 3)
 			  	}
 		  }
 	})
@@ -19,8 +19,8 @@
 	//Pintar datos al cargar documento
 	$(document).ready(function(){
 		//form, directorio, method, opc, server
-		mandar_datos('#get_rfc', null, 'main', 1, 2, 2)
-		mandar_datos('#get_rfc', null, 'main', 1, 3, 3)
+		mandar_datos('', null, 'main', 1, 2)
+		mandar_datos('', null, 'main', 1, 3)
 	})
 
 	//Mostrar municipios por estado
@@ -29,7 +29,22 @@
 
 		change:function(){
 			console.log( this.value )
-			mandar_datos('#get_rfc', this.value, 'main', 1, 3, 3)
+			mandar_datos('', this.value, 'main', 1, 3)
 		}
 
 	})
+
+	//autocompletado 
+
+	$(document).on( 'keydown', '#prod_aut', function(){
+
+		var value = $(this).val()
+		mandar_datos('#get_rfc', value, 'main', 1, 4)
+
+			console.log( value )
+
+	})
+
+	// $('.ui-menu-item-wrapper').on('click', function(){
+	// 	console.log( input.val() )
+	// })

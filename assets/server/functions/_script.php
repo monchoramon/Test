@@ -32,7 +32,7 @@ class main{
 
 	public function llenado_municipios( $params ){
 
-		if( $params ){
+		if( @$params ){
 			$sql = "SELECT kcvemunicipio, onombre FROM municipio WHERE kcveestado = $params";
 		}else{
 			$sql = "SELECT kcvemunicipio, onombre FROM municipio";
@@ -48,6 +48,24 @@ class main{
 				if( @$data ){
 					print_r(json_encode( array( 'data' => $data ) ));
 				}
+
+	}
+
+	public function autocompletado_producto( $nombre ){
+
+		$stmt = $this->conexion->prepare("SELECT onombre FROM producto WHERE onombre LIKE '%$nombre%'");
+
+		$stmt->execute();
+
+		while ( $row = $stmt->fetch(2) ) {
+			$data[] = $row;
+		}
+
+			if( @$data ){
+				print_r(json_encode( array( 'data' => $data ) ));
+			}else{
+				print_r(json_encode( array( 'data' => null ) ));
+			}
 
 	}
 
