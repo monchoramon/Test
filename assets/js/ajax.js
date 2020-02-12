@@ -41,14 +41,22 @@
 
 							case 4:
 
-								var availableTags = []
+								if( request.data ){
 
-								for(var x = 0; x < request.data.length; x++){
-									availableTags.push( request.data[x]['onombre'] )
-								}
+									var availableTags = []
+
+									for(var x = 0; x < request.data.length; x++){
+										availableTags.push( request.data[x]['onombre'] )
+									}
 
 									mostrar_autocompletado( availableTags )
 
+								}
+								
+							break;
+
+							case 5:
+								pintar_data_input( request )
 							break;
 
 					}
@@ -73,7 +81,9 @@
 
 	}
 
-	//autocompletado
+	//mostar opciones para el autocompletado
+
+	var _this = null
 
 	function mostrar_autocompletado( availableTags ){
 
@@ -81,11 +91,30 @@
 
 		$(document).on('keypress', '#prod_aut', function(){
 
+			_this = this
+
 			$(this).autocomplete({
-      			source: availableTags
+				source: availableTags
 	   		})	
 
 		})
+
+	}
+
+	//pintat los datos correspondientes según la selección
+	function pintar_data_input( request ){
+
+		var inputs = $(_this).parent().parent().children(),
+			input_clave   = inputs[0].firstChild,
+			input_cos_unit =inputs[3].firstChild 
+
+		input_clave.value = request.data[0]['oclave']
+		input_cos_unit.value = request.data[0]['ocostounitario']
+
+		input_clave.disabled = true
+		input_cos_unit.disabled = true
+
+		//console.log( inputs )
 
 	}
 

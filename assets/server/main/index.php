@@ -25,6 +25,10 @@
 			$main->autocompletado_producto( @$_POST['params'] );
 		break;
 
+		case 5:
+			$main->llenado_clave_cantidad( @$_POST['params'] );
+		break;
+
 	}
 
 ?>

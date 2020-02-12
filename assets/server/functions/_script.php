@@ -69,6 +69,25 @@ class main{
 
 	}
 
+	public function llenado_clave_cantidad( $params ){
+
+
+		$stmt = $this->conexion->prepare("SELECT oclave, ocostounitario FROM producto WHERE onombre = '$params'");
+
+			$stmt->execute();
+
+			while ( $row = $stmt->fetch(2) ) {
+				$data[] = $row;
+			}
+
+			if( @$data ){
+				print_r(json_encode( array( 'data' => $data ) ));
+			}else{
+				print_r(json_encode( array( 'data' => null ) ));
+			}
+
+	}
+
 
 }
 

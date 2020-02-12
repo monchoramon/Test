@@ -34,17 +34,35 @@
 
 	})
 
-	//autocompletado 
+	//autocompletado, index para buscar con LIKE
 
-	$(document).on( 'keydown', '#prod_aut', function(){
+	$(document).ready(function(){
 
-		var value = $(this).val()
-		mandar_datos('#get_rfc', value, 'main', 1, 4)
+		var value = null
 
-			console.log( value )
+		$(document).on( 'keypress', '#prod_aut', function(){
+
+			value = $(this).val()
+
+			//bucar las coincidencias con lo escrito
+			mandar_datos('#get_rfc', value, 'main', 1, 4)
+			get_value_input( value )
+
+
+		})
 
 	})
 
-	// $('.ui-menu-item-wrapper').on('click', function(){
-	// 	console.log( input.val() )
-	// })
+
+	function get_value_input( value ){
+
+		$(document).on('click', '.ui-menu-item-wrapper', function(){
+			var value_f = $("#"+this.id)[0].textContent
+			mandar_datos('#get_rfc', value_f, 'main', 1, 5)
+		})
+
+	}
+
+
+
+
