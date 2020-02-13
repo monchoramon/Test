@@ -100,8 +100,8 @@
 	function llenado_datos_con_rfc( request ){
 		$('#razon_social').val(request[0].orazonsocial)
 		$('#email').val(request[0].oemail)
-		$('#estados').val(request[0].rcveestado)
-		$('#municipios').val(request[0].rcvemunicipio)
+		$('#estado').val(request[0].rcveestado)
+		$('#municipio').val(request[0].rcvemunicipio)
 		$('#direccion').val(request[0].odireccion)
 		$('#colonia').val(request[0].ocolonia)
 		$('#codigo_postal').val(request[0].ocodigopostal)
