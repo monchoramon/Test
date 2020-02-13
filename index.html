@@ -13,7 +13,7 @@
 
 <body>
     <div class="container">
-        <form id="data_compra">
+        <form id="data_server">
             <div class="table-responsive table-bordered">
                 <table class="table">
                     <thead>
@@ -38,21 +38,27 @@
                             <td
                                 colspan="3"></td>
                         </tr>
-                        
+
                         <tr>
                             <td colspan="5"><strong>Datos Opcionales</strong></td>
                         </tr>
 
                         <tr>
-                            <td><label style="clear: both;display: block;">Estado</label><select class="form-control form-control-sm" id="estados" name="estados"><option value="" selected="">--Seleccionar Estado--</option></select></td>
-                            <td><label style="clear: both;display: block;">Ciudad/Municipio/Delegación</label><select class="form-control form-control-sm" id="municipios" name="municipios"><option value="" selected="">--Seleccionar--</option></select></td>
+                            <td><label style="clear: both;display: block;">Estado</label><select class="form-control form-control-sm" id="estado" name="estado"><option value="" selected="">--Seleccionar Estado--</option></select></td>
+                            <td><label style="clear: both;display: block;">Ciudad/Municipio/Delegación</label><select class="form-control form-control-sm" id="municipio" name="municipio"><option value="" selected="">--Seleccionar--</option></select></td>
                             <td><label style="clear: both;display: block;">Dirección</label><textarea class="form-control form-control-sm" id="direccion" name="direccion"></textarea></td>
                             <td><label style="clear: both;display: block;">Colonia</label><input type="text" class="form-control form-control-sm" id="colonia" name="colonia"></td>
                             <td><label style="clear: both;display: block;">Código Postal</label><input type="text" class="campoNumerico form-control form-control-sm" id="codigo_postal" name="codigo_postal"></td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
+
+            <button type="button" class="btn btn-primary" id="btn_save_dat_fis">
+                Guardar datos fiscales
+            </button>
+
+        </div>
+
         <div class="table-responsive table-bordered table-striped" id="tablaConceptos">
             <table id="conceptos_table" class="table">
                 <thead>
@@ -131,45 +137,45 @@
 
         </div>
 
+        <div class="table-responsive" style="width: 300px;float: right;">
+            <table class="table">
+                <thead>
+                    <tr></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Importe</td>
+                        <td>$0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Descuento</td>
+                        <td>$0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Subtotal</td>
+                        <td>$0.00</td>
+                    </tr>
+                    <tr>
+                        <td>IVA</td>
+                        <td>$0.00</td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td>$0.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
 
-            <div class="table-responsive" style="width: 300px;float: right;">
-                <table class="table">
-                    <thead>
-                        <tr></tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Importe</td>
-                            <td>$0.00</td>
-                        </tr>
-                        <tr>
-                            <td>Descuento</td>
-                            <td>$0.00</td>
-                        </tr>
-                        <tr>
-                            <td>Subtotal</td>
-                            <td>$0.00</td>
-                        </tr>
-                        <tr>
-                            <td>IVA</td>
-                            <td>$0.00</td>
-                        </tr>
-                        <tr>
-                            <td>Total</td>
-                            <td>$0.00</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </form>
-
-        <button type="button" id="guardar_compra">Guardar</button>
+        <button type="button" id="guardar_compra">Guardar conceptos</button>
 
     </div>
 
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/ajax.js"></script>
+    <script src="assets/js/core_functions.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
