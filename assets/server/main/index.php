@@ -26,7 +26,15 @@
 		break;
 
 		case 5:
-			$main->llenado_clave_cantidad( @$_POST['params'] );
+			$main->llenado_Clave_CostoUnitario( @$_POST['params'] );
+		break;
+
+		case 6:
+			$main->autocompletado_rfc( @$_POST['params'] );
+		break;
+
+		case 7:
+			$main->llenado_datos_con_rfc( @$_POST['params'] );
 		break;
 
 	}

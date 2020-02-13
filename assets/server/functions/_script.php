@@ -57,7 +57,7 @@ class main{
 
 		$stmt->execute();
 
-		while ( $row = $stmt->fetch(2) ) {
+		while ( $row = $stmt->fetch(PDO::FETCH_NUM) ) {
 			$data[] = $row;
 		}
 
@@ -69,7 +69,7 @@ class main{
 
 	}
 
-	public function llenado_clave_cantidad( $params ){
+	public function llenado_Clave_CostoUnitario( $params ){
 
 
 		$stmt = $this->conexion->prepare("SELECT oclave, ocostounitario FROM producto WHERE onombre = '$params'");
@@ -82,6 +82,51 @@ class main{
 
 			if( @$data ){
 				print_r(json_encode( array( 'data' => $data ) ));
+			}else{
+				print_r(json_encode( array( 'data' => null ) ));
+			}
+
+	}
+
+	public function autocompletado_rfc( $rfc ){
+
+		$stmt = $this->conexion->prepare("SELECT orfc FROM datosfiscales WHERE orfc LIKE '%$rfc%'");
+
+		$stmt->execute();
+
+		while ( $row = $stmt->fetch(PDO::FETCH_NUM) ) {
+			$data[] = $row;
+		}
+
+			if( @$data ){
+				print_r(json_encode( array( 'data' => $data ) ));
+			}else{
+				print_r(json_encode( array( 'data' => null ) ));
+			}
+
+
+	}
+
+	public function llenado_datos_con_rfc( $rfc ){
+
+		$stmt = $this->conexion->prepare("SELECT 
+											orazonsocial,
+											oemail,
+											rcveestado, 
+											rcvemunicipio,
+											odireccion,
+											ocolonia,
+											ocodigopostal
+											FROM datosfiscales WHERE orfc = '$rfc'");
+
+			$stmt->execute();
+
+			while ( $row = $stmt->fetch(2) ) {
+				$data[] = $row;
+			}
+
+			if( @$data ){
+				print_r(json_encode( $data ));
 			}else{
 				print_r(json_encode( array( 'data' => null ) ));
 			}

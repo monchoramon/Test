@@ -1,6 +1,6 @@
 
 
-	function mandar_datos( form, params, directorio, method, opc_server ){
+	function mandar_datos( form, params, directorio, method, opc_server, prop_cam_autoC ){
 
 			var method = tipo_metodo( method ), dat_return = null;
 
@@ -9,8 +9,8 @@
 				url: 'assets/server/'+directorio+'/index.php', //_script.php
 				data: {
 					params:params,
-					opcion:opc_server,
-					data:$(form).serialize()
+					opcion:opc_server
+					// data:$(form).serialize()
 				},
 				method: method,
 
@@ -40,23 +40,19 @@
 							break;
 
 							case 4:
-
-								if( request.data ){
-
-									var availableTags = []
-
-									for(var x = 0; x < request.data.length; x++){
-										availableTags.push( request.data[x]['onombre'] )
-									}
-
-									mostrar_autocompletado( availableTags )
-
-								}
-								
+								arreglo_autocompletado( request, prop_cam_autoC )
 							break;
 
 							case 5:
-								pintar_data_input( request )
+								pintar_data_input_conceptos( request )
+							break;
+
+							case 6:
+								arreglo_autocompletado( request, prop_cam_autoC )
+							break;
+
+							case 7:
+								llenado_datos_con_rfc( request, prop_cam_autoC )
 							break;
 
 					}
@@ -81,20 +77,38 @@
 
 	}
 
+	//generar arreglo para las opciones de autocompletado
+
+	function arreglo_autocompletado( request, prop_cam_autoC ){
+
+		if( request.data ){
+
+			var auto_txt = []
+
+			for(var x = 0; x < request.data.length; x++){
+				auto_txt.push( request.data[x][0] )
+			}
+
+			mostrar_autocompletado( auto_txt, prop_cam_autoC )
+
+		}
+
+	}
+
 	//mostar opciones para el autocompletado
 
 	var _this = null
 
-	function mostrar_autocompletado( availableTags ){
+	function mostrar_autocompletado( auto_txt, prop_cam_autoC ){
 
-		// console.log( availableTags )
+		//console.log( auto_txt, prop_cam_autoC )
 
-		$(document).on('keypress', '#prod_aut', function(){
+		$(document).on('keypress', prop_cam_autoC, function(){
 
 			_this = this
 
 			$(this).autocomplete({
-				source: availableTags
+				source: auto_txt
 	   		})	
 
 		})
@@ -102,20 +116,30 @@
 	}
 
 	//pintat los datos correspondientes según la selección
-	function pintar_data_input( request ){
+	function pintar_data_input_conceptos( request ){
 
 		var inputs = $(_this).parent().parent().children(),
-			input_clave   = inputs[0].firstChild,
-			input_cos_unit =inputs[3].firstChild 
+			input_clave   = inputs[0].firstElementChild,
+			input_cos_unit =inputs[3].firstElementChild 
 
-		input_clave.value = request.data[0]['oclave']
+		input_clave.value    = request.data[0]['oclave']
 		input_cos_unit.value = request.data[0]['ocostounitario']
 
 		input_clave.disabled = true
 		input_cos_unit.disabled = true
 
-		//console.log( inputs )
+		//console.log( request, inputs )
 
+	}
+
+	function llenado_datos_con_rfc( request ){
+		$('#razon_social').val(request[0].orazonsocial)
+		$('#email').val(request[0].oemail)
+		$('#estados').val(request[0].rcveestado)
+		$('#municipios').val(request[0].rcvemunicipio)
+		$('#direccion').val(request[0].odireccion)
+		$('#colonia').val(request[0].ocolonia)
+		$('#codigo_postal').val(request[0].ocodigopostal)
 	}
 
 	function tipo_metodo( tipe ){
