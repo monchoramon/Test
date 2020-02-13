@@ -7,7 +7,7 @@
 	})
 
 	//Mostrar municipios por estado
-	$("#estados").on({
+	$("#estado").on({
 
 		change:function(){
 			console.log( this.value )
@@ -78,17 +78,21 @@
 
 		}
 
-	// $("#guardar_compra").click(function(){
-	// 	mandar_datos('#data_compra', '', 'main', 1, 6, null)
-	// })
-
-		$(document).on('click', '#eliminar_concepto', function(){
-			eliminar_fila_tabla(this)
+		$("#btn_save_dat_fis").click(function(){
+			mandar_datos('#data_server', '', 'main', 1, 8, null)
 		})
 
-			$(document).on('click', '#botonAgregarConcepto', function(){
-				agregar_concepto( this )
+		// $("#guardar_compra").click(function(){
+		// 	mandar_datos('#data_compra', '', 'main', 1, 6, null)
+		// })
+
+			$(document).on('click', '#eliminar_concepto', function(){
+				eliminar_fila_tabla(this)
 			})
+
+				$(document).on('click', '#botonAgregarConcepto', function(){
+					agregar_concepto( this )
+				})
 
 		function eliminar_fila_tabla( _this ){
 

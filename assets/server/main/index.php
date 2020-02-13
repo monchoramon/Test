@@ -37,6 +37,10 @@
 			$main->llenado_datos_con_rfc( @$_POST['params'] );
 		break;
 
+		case 8:
+			$main->gurdar_datos_fiscales( @$_POST['rfc'], @$_POST['razon_social'], @$_POST['email'], @$_POST['estado'], @$_POST['municipio'], @$_POST['direccion'], @$_POST['colonia'], @$_POST['codigo_postal'] );		
+		break;
+
 	}
 
 ?>

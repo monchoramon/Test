@@ -133,6 +133,29 @@ class main{
 
 	}
 
+	public function gurdar_datos_fiscales($razon_social, $email, $estado, $municipio, $direccion, $colonia, $codigo_postal){
+
+		$validar_datos = array( $razon_social, $email, $estado, $municipio, $direccion, $colonia, $codigo_postal );
+
+		print_r(json_encode( array( main::validar_datos( $validar_datos ) ) ));
+
+	}
+ 
+
+		public function validar_datos( $validar_datos ){
+
+			$ctn_vacios = 0;
+
+			foreach ($validar_datos as $key => $value) {
+				if( !$value ){
+					$ctn_vacios++;
+				}
+			}
+
+				return $ctn_vacios;
+
+		}
+
 
 }
 
