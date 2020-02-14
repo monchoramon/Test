@@ -4,9 +4,28 @@
 -- Project :      BD Test.DM1
 -- Author :       Sensei-Ramón
 --
--- Date Created : Monday, February 10, 2020 18:12:46
+-- Date Created : Friday, February 14, 2020 11:51:01
 -- Target DBMS : MySQL 5.x
 --
+
+-- 
+-- TABLE: compras 
+--
+
+CREATE TABLE compras(
+    id_compras           INT            AUTO_INCREMENT,
+    folio                INT            NOT NULL,
+    cantidad             FLOAT(8, 0)    NOT NULL,
+    descuento            FLOAT(8, 0)    NOT NULL,
+    iva                  FLOAT(8, 0)    NOT NULL,
+    total                FLOAT(8, 0)    NOT NULL,
+    kcvedatosfiscales    INT            NOT NULL,
+    kcveproducto         INT            NOT NULL,
+    PRIMARY KEY (id_compras)
+)ENGINE=INNODB
+;
+
+
 
 -- 
 -- TABLE: datosfiscales 
@@ -71,6 +90,24 @@ CREATE TABLE municipio(
 
 
 -- 
+-- TABLE: otros_datos 
+--
+
+CREATE TABLE otros_datos(
+    id_otros       INT             AUTO_INCREMENT,
+    folio          INT             NOT NULL,
+    forma_pago     VARCHAR(100)    NOT NULL,
+    cfdi           VARCHAR(100)    NOT NULL,
+    metodo_pago    VARCHAR(10)     NOT NULL,
+    n_cuenta       VARCHAR(100)    NOT NULL,
+    id_compras     INT             NOT NULL,
+    PRIMARY KEY (id_otros)
+)ENGINE=INNODB
+;
+
+
+
+-- 
 -- TABLE: producto 
 --
 
@@ -91,12 +128,37 @@ CREATE TABLE producto(
 
 
 -- 
+-- TABLE: compras 
+--
+
+ALTER TABLE compras ADD CONSTRAINT Refdatosfiscales9 
+    FOREIGN KEY (kcvedatosfiscales)
+    REFERENCES datosfiscales(kcvedatosfiscales)
+;
+
+ALTER TABLE compras ADD CONSTRAINT Refproducto13 
+    FOREIGN KEY (kcveproducto)
+    REFERENCES producto(kcveproducto)
+;
+
+
+-- 
 -- TABLE: municipio 
 --
 
 ALTER TABLE municipio ADD CONSTRAINT Refestados1 
     FOREIGN KEY (kcveestado)
     REFERENCES estados(kcveestado)
+;
+
+
+-- 
+-- TABLE: otros_datos 
+--
+
+ALTER TABLE otros_datos ADD CONSTRAINT Refcompras16 
+    FOREIGN KEY (id_compras)
+    REFERENCES compras(id_compras)
 ;
 
 
