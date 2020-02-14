@@ -53,6 +53,7 @@
                     </tbody>
                 </table>
 
+            <input type="hidden" name="opcion" value="8">
             <button type="button" class="btn btn-primary" id="btn_save_dat_fis">
                 Guardar datos fiscales
             </button>
@@ -75,60 +76,44 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><input type="text" class="form-control form-control-sm"></td>
-                        <td><input id="prod_aut" type="text" class="form-control form-control-sm" name="producto[]" autocomplete="on"></td>
-                        <td><input type="text" class="campoNumerico form-control form-control-sm"></td>
-                        <td><input type="text" class="campoNumerico form-control form-control-sm"></td>
-                        <td><input type="text" class="campoNumerico form-control form-control-sm"></td>
-                        <td><input type="text" class="campoNumerico form-control form-control-sm"></td>
-                        <td><input type="text" class="campoNumerico form-control form-control-sm"></td>
+                        <td><input type="text" id="clave" name="clave[]" class="form-control form-control-sm"></td>
+                        <td><input id="prod_aut" name="prod_aut[]" type="text" class="form-control form-control-sm" autocomplete="on"></td>
+                        <td><input type="text" id="cantidad" name="cantidad[]" class="campoNumerico form-control form-control-sm"></td>
+                        <td><input type="text" id="costo_unit" name="costo_unit[]" class="campoNumerico form-control form-control-sm"></td>
+                        <td><input type="text" id="descuento" name="descuento[]" class="campoNumerico form-control form-control-sm"></td>
+                        <td><input type="text" id="iva" name="iva[]" class="campoNumerico form-control form-control-sm"></td>
+                        <td><input type="text" id="total" name="total[]" class="campoNumerico form-control form-control-sm"></td>
                         <td><button class="btn btn-danger btn-sm" type="button" id="eliminar_concepto"><i class="fa fa-trash-o"></i></button></td>
                     </tr>
                     <tr>
-                        <td><input type="text" class="form-control form-control-sm"></td>
-                        <td><input id="prod_aut" type="text" class="form-control form-control-sm" name="producto[]"></td>
-                        <td><input type="text" class="campoNumerico form-control form-control-sm"></td>
-                        <td><input type="text" class="campoNumerico form-control form-control-sm"></td>
-                        <td><input type="text" class="campoNumerico form-control form-control-sm"></td>
-                        <td><input type="text" class="campoNumerico form-control form-control-sm"></td>
-                        <td><input type="text" class="campoNumerico form-control form-control-sm"></td>
+                        <td><input type="text" id="clave" name="clave[]" class="form-control form-control-sm"></td>
+                        <td><input id="prod_aut" name="prod_aut[]" type="text" class="form-control form-control-sm" autocomplete="on"></td>
+                        <td><input type="text" id="cantidad" name="cantidad[]" class="campoNumerico form-control form-control-sm"></td>
+                        <td><input type="text" id="costo_unit" name="costo_unit[]" class="campoNumerico form-control form-control-sm"></td>
+                        <td><input type="text" id="descuento" name="descuento[]" class="campoNumerico form-control form-control-sm"></td>
+                        <td><input type="text" id="iva" name="iva[]" class="campoNumerico form-control form-control-sm"></td>
+                        <td><input type="text" id="total" name="total[]" class="campoNumerico form-control form-control-sm"></td>
                         <td><button class="btn btn-danger btn-sm" type="button" id="eliminar_concepto"><i class="fa fa-trash-o"></i></button></td>
                     </tr>
                     <tr>
-                        <td><input type="text" class="form-control form-control-sm"></td>
-                        <td><input id="prod_aut" type="text" class="form-control form-control-sm" name="producto[]"></td>
-                        <td><input type="text" class="campoNumerico form-control form-control-sm"></td>
-                        <td><input type="text" class="campoNumerico form-control form-control-sm"></td>
-                        <td><input type="text" class="campoNumerico form-control form-control-sm"></td>
-                        <td><input type="text" class="campoNumerico form-control form-control-sm"></td>
-                        <td><input type="text" class="campoNumerico form-control form-control-sm"></td>
+                        <td><input type="text" id="clave" name="clave[]" class="form-control form-control-sm"></td>
+                        <td><input id="prod_aut" name="prod_aut[]" type="text" class="form-control form-control-sm" autocomplete="on"></td>
+                        <td><input type="text" id="cantidad" name="cantidad[]" class="campoNumerico form-control form-control-sm"></td>
+                        <td><input type="text" id="costo_unit" name="costo_unit[]" class="campoNumerico form-control form-control-sm"></td>
+                        <td><input type="text" id="descuento" name="descuento[]" class="campoNumerico form-control form-control-sm"></td>
+                        <td><input type="text" id="iva" name="iva[]" class="campoNumerico form-control form-control-sm"></td>
+                        <td><input type="text" id="total" name="total[]" class="campoNumerico form-control form-control-sm"></td>
                         <td><button class="btn btn-danger btn-sm" type="button" id="eliminar_concepto"><i class="fa fa-trash-o"></i></button></td>
                     </tr>
                     <tr>
-                        <td>
-                            <input type="text" class="form-control form-control-sm">
-                        </td>
-                        <td>
-                            <input id="prod_aut" type="text" class="form-control form-control-sm" name="producto[]">
-                        </td>
-                        <td>
-                            <input type="text" class="campoNumerico form-control form-control-sm">
-                        </td>
-                        <td>
-                            <input type="text" class="campoNumerico form-control form-control-sm">
-                        </td>
-                        <td>
-                            <input type="text" class="campoNumerico form-control form-control-sm">
-                        </td>
-                        <td>
-                            <input type="text" class="campoNumerico form-control form-control-sm">
-                        </td>
-                        <td>
-                            <input type="text" class="campoNumerico form-control form-control-sm">
-                        </td>
-                        <td>
-                            <button class="btn btn-danger btn-sm" type="button" id="eliminar_concepto"><i class="fa fa-trash-o"></i></button>
-                        </td>
+                        <td><input type="text" id="clave" name="clave[]" class="form-control form-control-sm"></td>
+                        <td><input id="prod_aut" name="prod_aut[]" type="text" class="form-control form-control-sm" autocomplete="on"></td>
+                        <td><input type="text" id="cantidad" name="cantidad[]" class="campoNumerico form-control form-control-sm"></td>
+                        <td><input type="text" id="costo_unit" name="costo_unit[]" class="campoNumerico form-control form-control-sm"></td>
+                        <td><input type="text" id="descuento" name="descuento[]" class="campoNumerico form-control form-control-sm"></td>
+                        <td><input type="text" id="iva" name="iva[]" class="campoNumerico form-control form-control-sm"></td>
+                        <td><input type="text" id="total" name="total[]" class="campoNumerico form-control form-control-sm"></td>
+                        <td><button class="btn btn-danger btn-sm" type="button" id="eliminar_concepto"><i class="fa fa-trash-o"></i></button></td>
                     </tr>
                 </tbody>
             </table>
@@ -145,30 +130,30 @@
                 <tbody>
                     <tr>
                         <td>Importe</td>
-                        <td>$0.00</td>
+                        <td id="importe">$0.00</td>
                     </tr>
                     <tr>
                         <td>Descuento</td>
-                        <td>$0.00</td>
+                        <td id="_descuento">$0.00</td>
                     </tr>
                     <tr>
                         <td>Subtotal</td>
-                        <td>$0.00</td>
+                        <td id="subtotal">$0.00</td>
                     </tr>
                     <tr>
                         <td>IVA</td>
-                        <td>$0.00</td>
+                        <td id="_iva">$0.00</td>
                     </tr>
                     <tr>
                         <td>Total</td>
-                        <td>$0.00</td>
+                        <td id="_total">$0.00</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </form>
 
-        <button type="button" id="guardar_compra">Guardar conceptos</button>
+        <button type="button" id="guardar_compra" class="btn btn-primary">Guardar conceptos</button>
 
     </div>
 
