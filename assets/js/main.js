@@ -21,7 +21,7 @@
 
 		var value = null
 
-		$(document).on( 'keypress', '#prod_aut', function(){
+		$(document).on( 'keyup', '#prod_aut', function(){
 
 			value = $(this).val()
 
@@ -33,7 +33,7 @@
 		})
 
 
-		$(document).on( 'keypress', 'input[name=rfc]', function(){
+		$(document).on( 'keyup', 'input[name=rfc]', function(){
 
 			value = $(this).val()
 
@@ -88,6 +88,7 @@
 
 			$(document).on('click', '#eliminar_concepto', function(){
 				eliminar_fila_tabla(this)
+				campos_cantidad_descuento(this)
 			})
 
 				$(document).on('click', '#botonAgregarConcepto', function(){
@@ -111,7 +112,23 @@
 		function agregar_concepto( _this ){
 
 			var id_tbody = $(_this).parent().parent().children(),
-				tag_tr = $("<tr/>", {class:'create_tr'})
+				tag_tr = $("<tr/>", {class:'create_tr'}),
+				prop_name = ['clave[]'
+							,'prod_aut[]'
+							,'cantidad[]'
+							,'costo_unit[]'
+							,'descuento[]'
+							,'iva[]'
+							,'total[]'],
+				prop_id = [
+							'clave',
+							'prod_aut',
+							'cantidad',
+							'costo_unit',
+							'descuento',
+							'iva',
+							'total'
+						  ]
 
 			for(var x = 0; x < 8; x++){
 
@@ -125,7 +142,7 @@
 						var class_name = 'campoNumerico '+'form-control form-control-sm'
 					}
 
-						var tag_input = $('<input>', {type:'text', class: class_name})
+						var tag_input = $('<input>', {type:'text', class: class_name, name:prop_name[x], id:prop_id[x]})
 					
 							if( x == 1 ){
 								tag_input[0].id = 'prod_aut'
@@ -155,9 +172,101 @@
 
 		}
 
-		// function padre_element( _this ){
-		// 	return 
-		// }
+		//Calculos facturación
+
+		$(document).on('keyup', '#cantidad', function(){
+			campos_cantidad_descuento( this )
+		})
+
+		$(document).on('keyup', '#descuento', function(){
+			campos_cantidad_descuento( this )
+		})
+
+		function campos_cantidad_descuento( _this ){
+
+			var tr_table    = $(_this).parent().parent().children(),
+				cantidad    = tr_table[2].firstChild.value,
+				costo_unit  = tr_table[3].firstChild.value,
+				descuento   = tr_table[4].firstChild.value
+
+			if( cantidad && costo_unit && descuento){
+				calcular_datos_factura( cantidad, costo_unit, descuento, tr_table, _this )
+			}else{
+				console.log(false)
+			}
+
+
+		}
+
+		function calcular_datos_factura( cantidad, costo_unit, descuento, tr_table, _this ){
+
+			var _total_ini = (cantidad * costo_unit),
+				_descuento_aplicado = (_total_ini * descuento)/100,
+			    _iva = ( _total_ini - _descuento_aplicado ) * 0.16
+
+				tr_table[5].firstChild.value = _iva
+				tr_table[6].firstChild.value = ( _total_ini - _descuento_aplicado) + _iva
+
+			var importe = 0, _descuento = 0, subtotal = 0, iva_ = 0, total = 0,
+				rows = $(_this).parent().parent().parent().children(),
+				aux_td = 0,
+
+				cantidad_aux = 0, costo_unit_aux = 0
+
+				for( var x = 0; x < rows.length; x++){ 
+
+					aux_td = rows[x].children
+
+					for(var y = 0; y < (rows[x].children.length - 1); y++ ){
+
+						if( y == 2 ){
+							cantidad_aux = parseFloat( retornar_values( aux_td, y ) )
+						}else{
+							if( y == 3 ){
+								costo_unit_aux = parseFloat( retornar_values( aux_td, y ) )
+							}else{
+								if( y == 4 ){
+									_descuento += parseFloat( retornar_values( aux_td, y ) )
+								}else{
+									if( y == 5 ){
+										console.log( retornar_values( aux_td, y ) )
+										iva_ += parseFloat( retornar_values( aux_td, y ) )
+									}
+								}
+							}
+						}
+
+					}
+
+					importe += (cantidad_aux * costo_unit_aux)
+
+				}
+
+				subtotal = ( importe - _descuento )
+				total = subtotal + iva_
+
+				$('#importe')[0].innerText = '$'+importe
+				$('#_descuento')[0].innerText = '$'+_descuento
+				$('#subtotal')[0].innerText = '$'+subtotal
+				$('#_iva')[0].innerText = '$'+iva_
+				$('#_total')[0].innerText = '$'+total
+
+					console.log( importe, _descuento, subtotal, iva_, total )
+
+			//console.log( rows[0].children.length - 1 )
+
+		}
+
+		function retornar_values( aux_td, y ){
+
+			var value = aux_td[y].children[0].value
+
+			if( !value ){
+				value = 0
+			}
+
+				return value
+		}
 
 
 

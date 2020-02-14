@@ -5,7 +5,7 @@
 
 	$main = new main();
 
-	$opc = $_POST['opcion'];
+	$opc = @$_POST['opcion'];
 
 	switch ( $opc ) {
 

@@ -133,28 +133,110 @@ class main{
 
 	}
 
-	public function gurdar_datos_fiscales($razon_social, $email, $estado, $municipio, $direccion, $colonia, $codigo_postal){
+	public function gurdar_datos_fiscales($rfc, $razon_social, $email, $estado, $municipio, $direccion, $colonia, $codigo_postal){
 
-		$validar_datos = array( $razon_social, $email, $estado, $municipio, $direccion, $colonia, $codigo_postal );
+		$validar_datos = array( $rfc, $razon_social, $email, $estado, $municipio, $direccion, $colonia, $codigo_postal );
 
-		print_r(json_encode( array( main::validar_datos( $validar_datos ) ) ));
+		if( main::validar_datos( $validar_datos ) > 0 ){
+			print_r(json_encode( array('info' => 'Todos los campos son necesarios') ));
+		}else{
 
-	}
- 
+			if( main::verificar_existencia( $rfc ) ){
 
-		public function validar_datos( $validar_datos ){
+				$stmt = $this->conexion->prepare('UPDATE datosfiscales SET 
+												  orfc = :rfc_, 
+												  orazonsocial = :orazonsocial, 
+												  rcveestado = :rcveestado, 
+												  rcvemunicipio = :rcvemunicipio, 
+												  odireccion = :odireccion, 
+												  ocolonia = :ocolonia, 
+												  ocodigopostal = :ocodigopostal, 
+												  oemail = :oemail 
+												  WHERE orfc = :rfc'
+												);
 
-			$ctn_vacios = 0;
+				$stmt->bindParam(':rfc', $rfc);
 
-			foreach ($validar_datos as $key => $value) {
-				if( !$value ){
-					$ctn_vacios++;
-				}
+			}else{
+
+				$stmt = $this->conexion->prepare('INSERT INTO datosfiscales 
+								  (	
+								  	orfc,
+								  	orazonsocial,
+								  	rcveestado,
+								  	rcvemunicipio,
+								  	odireccion,
+								  	ocolonia,
+								  	ocodigopostal,
+								  	oemail
+								  ) VALUES( :rfc_
+								  		   ,:orazonsocial
+								  		   ,:rcveestado
+								  		   ,:rcvemunicipio
+								  		   ,:odireccion
+								  		   ,:ocolonia
+								  		   ,:ocodigopostal
+								  		   ,:oemail
+										   )');
+
 			}
 
-				return $ctn_vacios;
+			$stmt->bindParam(':rfc_', $rfc);
+			$stmt->bindParam(':orazonsocial', $razon_social);
+			$stmt->bindParam(':rcveestado', $estado);
+			$stmt->bindParam(':rcvemunicipio', $municipio);
+			$stmt->bindParam(':odireccion', $direccion);
+			$stmt->bindParam(':ocolonia', $colonia);
+			$stmt->bindParam(':ocodigopostal', $codigo_postal);
+			$stmt->bindParam(':oemail', $email);
+
+			if( $stmt->execute() ){
+				print_r(json_encode( array('tipe' => true) ));
+			}else{
+				print_r(json_encode( array('tipe' => false) ));
+			}
 
 		}
+		
+	}
+
+
+	public function verificar_existencia( $rfc ){
+
+		$stmt = $this->conexion->prepare("SELECT orfc FROM datosfiscales WHERE orfc = ?");
+
+		$stmt->bindParam(1, $rfc);
+
+		$stmt->execute();
+
+		$tipe = false;
+
+		while ( $row = $stmt->fetch(2) ) {
+			$data[] = $row;
+		}
+
+		if( @$data ){
+			$tipe = true;
+		}
+
+
+			return $tipe;
+
+	}
+
+	public function validar_datos( $validar_datos ){
+
+		$ctn_vacios = 0;
+
+		foreach ($validar_datos as $key => $value) {
+			if( !$value ){
+				$ctn_vacios++;
+			}
+		}
+
+			return $ctn_vacios;
+
+	}
 
 
 }

@@ -1,4 +1,26 @@
 	
+	function tipo_metodo( tipe ){
+
+		var method = null;
+
+			switch( tipe ){
+
+				case 1:
+					method = "POST";
+				break;
+
+				case 2:
+					method = "GET";
+				break;
+
+
+			}
+
+
+		return method;
+
+	}
+
 	function tipo_datos_enviar( form, params, opc_server ){
 
 		var data = $(form).serialize()
@@ -68,7 +90,7 @@
 
 		//console.log( auto_txt, prop_cam_autoC )
 
-		$(document).on('keypress', prop_cam_autoC, function(){
+		$(document).on('keyup', prop_cam_autoC, function(){
 
 			_this = this
 
@@ -107,24 +129,7 @@
 		$('#codigo_postal').val(request[0].ocodigopostal)
 	}
 
-	function tipo_metodo( tipe ){
-
-		var method = null;
-
-			switch( tipe ){
-
-				case 1:
-					method = "POST";
-				break;
-
-				case 2:
-					method = "GET";
-				break;
-
-
-			}
-
-
-		return method;
-
+	function gurdar_datos_fiscales( request ){
+		console.log( request )
 	}
+

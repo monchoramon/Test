@@ -11,7 +11,7 @@ function mandar_datos( form, params, directorio, method, opc_server, prop_cam_au
 
 			success:function( data ){
 
-				var request = JSON.parse( data );
+			var request = JSON.parse( data );
 
 			if( request ){
 					
