@@ -88,9 +88,9 @@
 
 	function mostrar_autocompletado( auto_txt, prop_cam_autoC ){
 
-		//console.log( auto_txt, prop_cam_autoC )
+		console.log( auto_txt, prop_cam_autoC )
 
-		$(document).on('keyup', prop_cam_autoC, function(){
+		$(document).on('keypress keyup', prop_cam_autoC, function(){
 
 			_this = this
 

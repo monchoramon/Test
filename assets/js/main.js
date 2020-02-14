@@ -82,10 +82,6 @@
 			mandar_datos('#data_server', '', 'main', 1, 8, null)
 		})
 
-		// $("#guardar_compra").click(function(){
-		// 	mandar_datos('#data_compra', '', 'main', 1, 6, null)
-		// })
-
 			$(document).on('click', '#eliminar_concepto', function(){
 				eliminar_fila_tabla(this)
 				campos_cantidad_descuento(this)
@@ -267,6 +263,11 @@
 
 				return value
 		}
+
+		$("#guardar_compra").click(function(){
+			var opcion = $("input[name=opcion]")[0].value = 9
+			mandar_datos('#data_server', '', 'main', 1, 9, null)
+		})
 
 
 

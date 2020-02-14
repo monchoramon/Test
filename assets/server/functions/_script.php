@@ -238,6 +238,13 @@ class main{
 
 	}
 
+	public function guardar_factura($cantidad, $descuento, $iva, $total, $rfc, $clave, $forma_pago, $numero_cuenta, $uso_cfdi, $metodo_pago){
+
+
+		print_r(json_encode( array( $cantidad, $descuento, $iva, $total, $rfc, $clave, $forma_pago, $numero_cuenta, $uso_cfdi, $metodo_pago ) ));
+
+	}
+
 
 }
 

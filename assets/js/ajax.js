@@ -49,6 +49,11 @@ function mandar_datos( form, params, directorio, method, opc_server, prop_cam_au
 							gurdar_datos_fiscales( request )
 						break;
 
+						case 9:
+							console.log( request )
+							//guardar_factura()
+						break;
+
 				}
 
 			}

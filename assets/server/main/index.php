@@ -38,7 +38,27 @@
 		break;
 
 		case 8:
-			$main->gurdar_datos_fiscales( @$_POST['rfc'], @$_POST['razon_social'], @$_POST['email'], @$_POST['estado'], @$_POST['municipio'], @$_POST['direccion'], @$_POST['colonia'], @$_POST['codigo_postal'] );		
+			$main->gurdar_datos_fiscales( @$_POST['rfc'], 
+									      @$_POST['razon_social'], 
+									      @$_POST['email'], 
+									      @$_POST['estado'], 
+									      @$_POST['municipio'], 
+									      @$_POST['direccion'], 
+									      @$_POST['colonia'], 
+									      @$_POST['codigo_postal'] );		
+		break;
+
+		case 9:
+			$main->guardar_factura( @$_POST['cantidad'], 
+								    @$_POST['descuento'], 
+								    @$_POST['iva'], 
+								    @$_POST['total'], 
+								    @$_POST['rfc'], 
+								    @$_POST['clave'],
+								    @$_POST['forma_pago'],
+								    @$_POST['numero_cuenta'],
+								    @$_POST['uso_cfdi'],
+								    @$_POST['metodo_pago'] );
 		break;
 
 	}
