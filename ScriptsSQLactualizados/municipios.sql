@@ -31,7 +31,7 @@ INSERT INTO `municipio` (
 	`istatus`, 
 	`ifecins`, 
 	`iusrins`, 
-	`ifecmod`,|
+	`ifecmod`,
 	`iusrmod`
 	) VALUES
 (1, 14,'ETZATLAN','','0000-00-00 00:00:00','','0000-00-00 00:00:00',''),
