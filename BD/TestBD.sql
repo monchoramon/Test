@@ -4,7 +4,7 @@
 -- Project :      BD Test.DM1
 -- Author :       Sensei-Ramón
 --
--- Date Created : Friday, February 14, 2020 11:51:01
+-- Date Created : Friday, February 14, 2020 23:05:21
 -- Target DBMS : MySQL 5.x
 --
 
@@ -14,7 +14,6 @@
 
 CREATE TABLE compras(
     id_compras           INT            AUTO_INCREMENT,
-    folio                INT            NOT NULL,
     cantidad             FLOAT(8, 0)    NOT NULL,
     descuento            FLOAT(8, 0)    NOT NULL,
     iva                  FLOAT(8, 0)    NOT NULL,
@@ -94,13 +93,14 @@ CREATE TABLE municipio(
 --
 
 CREATE TABLE otros_datos(
-    id_otros       INT             AUTO_INCREMENT,
-    folio          INT             NOT NULL,
-    forma_pago     VARCHAR(100)    NOT NULL,
-    cfdi           VARCHAR(100)    NOT NULL,
-    metodo_pago    VARCHAR(10)     NOT NULL,
-    n_cuenta       VARCHAR(100)    NOT NULL,
-    id_compras     INT             NOT NULL,
+    id_otros            INT             AUTO_INCREMENT,
+    fecha_expedicion    DATETIME,
+    folio               INT,
+    forma_pago          VARCHAR(100)    NOT NULL,
+    cfdi                VARCHAR(100)    NOT NULL,
+    metodo_pago         VARCHAR(10)     NOT NULL,
+    n_cuenta            VARCHAR(100)    NOT NULL,
+    id_compras          INT             NOT NULL,
     PRIMARY KEY (id_otros)
 )ENGINE=INNODB
 ;
@@ -131,12 +131,12 @@ CREATE TABLE producto(
 -- TABLE: compras 
 --
 
-ALTER TABLE compras ADD CONSTRAINT Refdatosfiscales9 
+ALTER TABLE compras ADD CONSTRAINT Refdatosfiscales18 
     FOREIGN KEY (kcvedatosfiscales)
     REFERENCES datosfiscales(kcvedatosfiscales)
 ;
 
-ALTER TABLE compras ADD CONSTRAINT Refproducto13 
+ALTER TABLE compras ADD CONSTRAINT Refproducto19 
     FOREIGN KEY (kcveproducto)
     REFERENCES producto(kcveproducto)
 ;

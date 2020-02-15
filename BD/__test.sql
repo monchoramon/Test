@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-02-2020 a las 20:10:03
+-- Tiempo de generación: 15-02-2020 a las 07:26:11
 -- Versión del servidor: 10.3.16-MariaDB
 -- Versión de PHP: 7.1.30
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `_test`
+-- Base de datos: `__test`
 --
 
 -- --------------------------------------------------------
@@ -30,14 +30,22 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `compras` (
   `id_compras` int(11) NOT NULL,
-  `folio` int(11) NOT NULL,
-  `cantidad` float(8,0) NOT NULL,
-  `descuento` float(8,0) NOT NULL,
-  `iva` float(8,0) NOT NULL,
-  `total` float(8,0) NOT NULL,
-  `kcvedatosfiscales` int(11) NOT NULL,
-  `kcveproducto` int(11) NOT NULL
+  `cantidad` decimal(18,2) NOT NULL,
+  `descuento` decimal(18,2) NOT NULL,
+  `iva` decimal(18,2) NOT NULL,
+  `total` decimal(18,2) NOT NULL,
+  `kcveproducto` int(11) NOT NULL,
+  `kcvedatosfiscales` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `compras`
+--
+
+INSERT INTO `compras` (`id_compras`, `cantidad`, `descuento`, `iva`, `total`, `kcveproducto`, `kcvedatosfiscales`) VALUES
+(1, '3.00', '3.00', '25.65', '186.00', 1, 1),
+(2, '4.00', '4.00', '17.20', '124.72', 3, 1),
+(3, '5.00', '6.00', '18.95', '137.39', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -2615,7 +2623,8 @@ INSERT INTO `municipio` (`kcvemunicipio`, `kcveestado`, `onombre`, `istatus`, `i
 
 CREATE TABLE `otros_datos` (
   `id_otros` int(11) NOT NULL,
-  `folio` int(11) NOT NULL,
+  `fecha_expedicion` datetime DEFAULT NULL,
+  `folio` int(11) DEFAULT NULL,
   `forma_pago` varchar(100) NOT NULL,
   `cfdi` varchar(100) NOT NULL,
   `metodo_pago` varchar(10) NOT NULL,
@@ -2659,8 +2668,8 @@ INSERT INTO `producto` (`kcveproducto`, `onombre`, `oclave`, `ocostounitario`, `
 --
 ALTER TABLE `compras`
   ADD PRIMARY KEY (`id_compras`),
-  ADD KEY `Refdatosfiscales9` (`kcvedatosfiscales`),
-  ADD KEY `Refproducto13` (`kcveproducto`);
+  ADD KEY `Refdatosfiscales18` (`kcvedatosfiscales`),
+  ADD KEY `Refproducto19` (`kcveproducto`);
 
 --
 -- Indices de la tabla `datosfiscales`
@@ -2702,7 +2711,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id_compras` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_compras` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `datosfiscales`
@@ -2742,8 +2751,8 @@ ALTER TABLE `producto`
 -- Filtros para la tabla `compras`
 --
 ALTER TABLE `compras`
-  ADD CONSTRAINT `Refdatosfiscales9` FOREIGN KEY (`kcvedatosfiscales`) REFERENCES `datosfiscales` (`kcvedatosfiscales`),
-  ADD CONSTRAINT `Refproducto13` FOREIGN KEY (`kcveproducto`) REFERENCES `producto` (`kcveproducto`);
+  ADD CONSTRAINT `Refdatosfiscales18` FOREIGN KEY (`kcvedatosfiscales`) REFERENCES `datosfiscales` (`kcvedatosfiscales`),
+  ADD CONSTRAINT `Refproducto19` FOREIGN KEY (`kcveproducto`) REFERENCES `producto` (`kcveproducto`);
 
 --
 -- Filtros para la tabla `municipio`
