@@ -111,9 +111,9 @@
 
 		input_clave.value    = request.data[0]['oclave']
 		input_cos_unit.value = request.data[0]['ocostounitario']
-
-		input_clave.disabled = true
-		input_cos_unit.disabled = true
+		
+		input_clave.readOnly = true
+		input_cos_unit.readOnly = true
 
 		//console.log( request, inputs )
 

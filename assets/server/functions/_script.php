@@ -9,10 +9,14 @@ include_once '../PDO/pdo.php';
 class main{
 
 	public $conexion;
+	public $sqls_ctn;
 
 	function __construct(){
 		$pdo = new conexion();
 		$this->conexion = $pdo->bd();
+
+		$this->sqls_ctn = 0;
+
 	}
 
 	public function llenado_estados(){
@@ -238,10 +242,126 @@ class main{
 
 	}
 
-	public function guardar_factura($cantidad, $descuento, $iva, $total, $rfc, $clave, $forma_pago, $numero_cuenta, $uso_cfdi, $metodo_pago){
+	public function guardar_factura($cantidad, $descuento, $iva, $total, $rfc, $clave, 
+									$forma_pago, $uso_cfdi, $metodo_pago, $numero_cuenta){
+
+		$folio = main::folio();
+
+		$data = array( $cantidad, $descuento, $iva, $total );
+		$claves = main::get_id_producto( $clave );
+
+		//generar arreglo unidimensional
+		foreach ($claves as $key => $value) {
+			foreach ($value as $key => $value) {
+				$data[4][$key] = $value;
+			}
+		}
+
+		foreach ($cantidad as $key_a => $value) {
+			foreach ($data as $key_b => $value) {
+				$data_final[$key_a][$key_b] = $data[$key_b][$key_a];
+				$data_final[$key_a][$key_b+1] = main::get_id_datos_fiscales( $rfc );
+			}
+		}
+
+		foreach ($data_final as $key_a => $value_a) {
+			main::insertar_conceptos( $key_a, $data_final );
+		}
+
+		//print_r(json_encode( $data_final ));
 
 
-		print_r(json_encode( array( $cantidad, $descuento, $iva, $total, $rfc, $clave, $forma_pago, $numero_cuenta, $uso_cfdi, $metodo_pago ) ));
+	}
+
+		public function get_id_producto( $clave ){
+			
+			foreach ($clave as $key => $value) {
+
+				$stmt = $this->conexion->prepare("SELECT kcveproducto FROM producto WHERE oclave = ?");
+
+				$stmt->bindParam(1, $value);
+
+				$stmt->execute();
+
+				while ( $row = $stmt->fetch(PDO::FETCH_NUM) ) {
+					$id_data[0][$key] = $row[0];
+				}
+
+			}
+
+				//print_r(json_encode( $id_data ) );
+
+			return $id_data;
+
+		}
+
+		public function get_id_datos_fiscales( $rfc ){
+
+			$stmt = $this->conexion->prepare("SELECT kcvedatosfiscales FROM datosfiscales WHERE orfc = ?");
+
+			$stmt->bindParam(1, $rfc);
+
+			$stmt->execute();
+
+			return $stmt->fetch(PDO::FETCH_NUM)[0];
+
+		}
+
+		public function insertar_conceptos( $index_main, $data_final ){
+
+				$stmt = $this->conexion->prepare('INSERT INTO compras 
+						  (	
+						  	cantidad,
+						  	descuento,
+						  	iva,
+						  	total,
+						  	kcveproducto,
+						  	kcvedatosfiscales
+			  			  ) VALUES( :cantidad,
+							  		:descuento,
+							  		:iva,
+							  		:total,
+							  		:clave_producto,
+							  		:rfc
+								   )');
+
+					$stmt->bindParam(':cantidad', $data_final[$index_main][0]);
+					$stmt->bindParam(':descuento', $data_final[$index_main][1]);
+					$stmt->bindParam(':iva', $data_final[$index_main][2]);
+					$stmt->bindParam(':total', $data_final[$index_main][3]);
+					$stmt->bindParam(':clave_producto', $data_final[$index_main][4]);
+					$stmt->bindParam(':rfc', $data_final[$index_main][5]);
+
+				if( $stmt->execute() ){
+					$this->sqls_ctn++;
+				}
+
+					if( $this->sqls_ctn == 3 ){
+						print_r(json_encode( array( $this->sqls_ctn ) ));
+					}
+
+		}
+
+
+	public function folio(){
+
+		$stmt = $this->conexion->prepare("SELECT MAX(folio) AS folio_otro FROM otros_datos");
+
+		$stmt->execute();
+
+		while ( $row = $stmt->fetch(2) ) {
+			$folio[] = $row;
+		}
+
+			$folio_query = @$folio[0]['folio_otro'];
+
+			if( @$folio_query ){
+				$folio_otro = $folio_query+1;
+			}else{
+				$folio_otro = 1;
+			}
+
+		return $folio_otro;
 
 	}
 

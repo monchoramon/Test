@@ -11,7 +11,7 @@ class conexion{
 	$usuario = "root";
 	$password = "";
 
-	$mbd = new PDO('mysql:host=localhost;dbname=_test;charset=utf8', $usuario, $password);
+	$mbd = new PDO('mysql:host=localhost;dbname=__test;charset=utf8', $usuario, $password);
 
 		if(!$mbd){
 			print_r(json_encode(array(
