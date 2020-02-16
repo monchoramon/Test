@@ -49,6 +49,7 @@
 		break;
 
 		case 9:
+		
 			$main->guardar_factura( @$_POST['cantidad'], 
 								    @$_POST['descuento'], 
 								    @$_POST['iva'], 
@@ -59,6 +60,17 @@
 								    @$_POST['numero_cuenta'],
 								    @$_POST['uso_cfdi'],
 								    @$_POST['metodo_pago'] );
+
+		// print_r(json_encode( array( @$_POST['cantidad'], 
+		// 						    @$_POST['descuento'], 
+		// 						    @$_POST['iva'], 
+		// 						    @$_POST['total'], 
+		// 						    @$_POST['rfc'], 
+		// 						    @$_POST['clave'],
+		// 						    @$_POST['forma_pago'],
+		// 						    @$_POST['numero_cuenta'],
+		// 						    @$_POST['uso_cfdi'],
+		// 						    @$_POST['metodo_pago'] ) ));
 		break;
 
 	}
