@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-02-2020 a las 07:26:11
+-- Tiempo de generación: 16-02-2020 a las 01:20:37
 -- Versión del servidor: 10.3.16-MariaDB
 -- Versión de PHP: 7.1.30
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `__test`
+-- Base de datos: `___test`
 --
 
 -- --------------------------------------------------------
@@ -35,17 +35,25 @@ CREATE TABLE `compras` (
   `iva` decimal(18,2) NOT NULL,
   `total` decimal(18,2) NOT NULL,
   `kcveproducto` int(11) NOT NULL,
-  `kcvedatosfiscales` int(11) NOT NULL
+  `kcvedatosfiscales` int(11) NOT NULL,
+  `id_otros` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `compras`
 --
 
-INSERT INTO `compras` (`id_compras`, `cantidad`, `descuento`, `iva`, `total`, `kcveproducto`, `kcvedatosfiscales`) VALUES
-(1, '3.00', '3.00', '25.65', '186.00', 1, 1),
-(2, '4.00', '4.00', '17.20', '124.72', 3, 1),
-(3, '5.00', '6.00', '18.95', '137.39', 2, 1);
+INSERT INTO `compras` (`id_compras`, `cantidad`, `descuento`, `iva`, `total`, `kcveproducto`, `kcvedatosfiscales`, `id_otros`) VALUES
+(1, '1.00', '3.00', '8.55', '62.00', 1, 1, 1),
+(2, '2.00', '4.00', '8.60', '62.36', 3, 1, 1),
+(3, '3.00', '5.00', '11.49', '83.31', 2, 1, 1),
+(4, '4.00', '6.00', '33.15', '240.32', 1, 1, 1),
+(5, '5.00', '7.00', '20.83', '151.03', 3, 1, 1),
+(6, '6.00', '8.00', '48.66', '352.82', 1, 1, 1),
+(7, '7.00', '9.00', '25.68', '186.21', 2, 1, 1),
+(8, '1.00', '3.00', '8.55', '62.00', 1, 1, 2),
+(9, '2.00', '5.00', '7.66', '55.54', 2, 1, 2),
+(10, '3.00', '6.00', '11.37', '82.43', 2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -2627,10 +2635,18 @@ CREATE TABLE `otros_datos` (
   `folio` int(11) DEFAULT NULL,
   `forma_pago` varchar(100) NOT NULL,
   `cfdi` varchar(100) NOT NULL,
-  `metodo_pago` varchar(10) NOT NULL,
-  `n_cuenta` varchar(100) NOT NULL,
-  `id_compras` int(11) NOT NULL
+  `metodo_pago` varchar(100) NOT NULL,
+  `n_cuenta` int(11) NOT NULL,
+  `kcvedatosfiscales` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `otros_datos`
+--
+
+INSERT INTO `otros_datos` (`id_otros`, `fecha_expedicion`, `folio`, `forma_pago`, `cfdi`, `metodo_pago`, `n_cuenta`, `kcvedatosfiscales`) VALUES
+(1, '2020-02-15 18:08:58', 1, '01', 'G01', 'PUE', 123, 1),
+(2, '2020-02-15 18:08:59', 2, '01', 'G01', 'PUE', 12345678, 1);
 
 -- --------------------------------------------------------
 
@@ -2669,7 +2685,8 @@ INSERT INTO `producto` (`kcveproducto`, `onombre`, `oclave`, `ocostounitario`, `
 ALTER TABLE `compras`
   ADD PRIMARY KEY (`id_compras`),
   ADD KEY `Refdatosfiscales18` (`kcvedatosfiscales`),
-  ADD KEY `Refproducto19` (`kcveproducto`);
+  ADD KEY `Refproducto19` (`kcveproducto`),
+  ADD KEY `Refotros_datos26` (`id_otros`);
 
 --
 -- Indices de la tabla `datosfiscales`
@@ -2695,7 +2712,7 @@ ALTER TABLE `municipio`
 --
 ALTER TABLE `otros_datos`
   ADD PRIMARY KEY (`id_otros`),
-  ADD KEY `Refcompras16` (`id_compras`);
+  ADD KEY `Refdatosfiscales27` (`kcvedatosfiscales`);
 
 --
 -- Indices de la tabla `producto`
@@ -2711,7 +2728,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id_compras` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_compras` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `datosfiscales`
@@ -2735,7 +2752,7 @@ ALTER TABLE `municipio`
 -- AUTO_INCREMENT de la tabla `otros_datos`
 --
 ALTER TABLE `otros_datos`
-  MODIFY `id_otros` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_otros` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
@@ -2752,6 +2769,7 @@ ALTER TABLE `producto`
 --
 ALTER TABLE `compras`
   ADD CONSTRAINT `Refdatosfiscales18` FOREIGN KEY (`kcvedatosfiscales`) REFERENCES `datosfiscales` (`kcvedatosfiscales`),
+  ADD CONSTRAINT `Refotros_datos26` FOREIGN KEY (`id_otros`) REFERENCES `otros_datos` (`id_otros`),
   ADD CONSTRAINT `Refproducto19` FOREIGN KEY (`kcveproducto`) REFERENCES `producto` (`kcveproducto`);
 
 --
@@ -2764,7 +2782,7 @@ ALTER TABLE `municipio`
 -- Filtros para la tabla `otros_datos`
 --
 ALTER TABLE `otros_datos`
-  ADD CONSTRAINT `Refcompras16` FOREIGN KEY (`id_compras`) REFERENCES `compras` (`id_compras`);
+  ADD CONSTRAINT `Refdatosfiscales27` FOREIGN KEY (`kcvedatosfiscales`) REFERENCES `datosfiscales` (`kcvedatosfiscales`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

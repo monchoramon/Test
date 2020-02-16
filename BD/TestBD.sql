@@ -4,7 +4,7 @@
 -- Project :      BD Test.DM1
 -- Author :       Sensei-Ramón
 --
--- Date Created : Friday, February 14, 2020 23:05:21
+-- Date Created : Saturday, February 15, 2020 18:19:46
 -- Target DBMS : MySQL 5.x
 --
 
@@ -13,13 +13,14 @@
 --
 
 CREATE TABLE compras(
-    id_compras           INT            AUTO_INCREMENT,
-    cantidad             FLOAT(8, 0)    NOT NULL,
-    descuento            FLOAT(8, 0)    NOT NULL,
-    iva                  FLOAT(8, 0)    NOT NULL,
-    total                FLOAT(8, 0)    NOT NULL,
-    kcvedatosfiscales    INT            NOT NULL,
-    kcveproducto         INT            NOT NULL,
+    id_compras           INT               AUTO_INCREMENT,
+    cantidad             DECIMAL(18, 2)    NOT NULL,
+    descuento            DECIMAL(18, 2)    NOT NULL,
+    iva                  DECIMAL(18, 2)    NOT NULL,
+    total                DECIMAL(18, 2)    NOT NULL,
+    kcveproducto         INT               NOT NULL,
+    kcvedatosfiscales    INT               NOT NULL,
+    id_otros             INT               NOT NULL,
     PRIMARY KEY (id_compras)
 )ENGINE=INNODB
 ;
@@ -93,14 +94,14 @@ CREATE TABLE municipio(
 --
 
 CREATE TABLE otros_datos(
-    id_otros            INT             AUTO_INCREMENT,
-    fecha_expedicion    DATETIME,
-    folio               INT,
-    forma_pago          VARCHAR(100)    NOT NULL,
-    cfdi                VARCHAR(100)    NOT NULL,
-    metodo_pago         VARCHAR(10)     NOT NULL,
-    n_cuenta            VARCHAR(100)    NOT NULL,
-    id_compras          INT             NOT NULL,
+    id_otros             INT             AUTO_INCREMENT,
+    fecha_expedicion     DATETIME,
+    folio                INT,
+    forma_pago           VARCHAR(100)    NOT NULL,
+    cfdi                 VARCHAR(100)    NOT NULL,
+    metodo_pago          VARCHAR(10)     NOT NULL,
+    n_cuenta             INT             NOT NULL,
+    kcvedatosfiscales    INT             NOT NULL,
     PRIMARY KEY (id_otros)
 )ENGINE=INNODB
 ;
@@ -141,6 +142,11 @@ ALTER TABLE compras ADD CONSTRAINT Refproducto19
     REFERENCES producto(kcveproducto)
 ;
 
+ALTER TABLE compras ADD CONSTRAINT Refotros_datos26 
+    FOREIGN KEY (id_otros)
+    REFERENCES otros_datos(id_otros)
+;
+
 
 -- 
 -- TABLE: municipio 
@@ -156,9 +162,9 @@ ALTER TABLE municipio ADD CONSTRAINT Refestados1
 -- TABLE: otros_datos 
 --
 
-ALTER TABLE otros_datos ADD CONSTRAINT Refcompras16 
-    FOREIGN KEY (id_compras)
-    REFERENCES compras(id_compras)
+ALTER TABLE otros_datos ADD CONSTRAINT Refdatosfiscales27 
+    FOREIGN KEY (kcvedatosfiscales)
+    REFERENCES datosfiscales(kcvedatosfiscales)
 ;
 
 
