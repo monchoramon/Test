@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-02-2020 a las 01:20:37
+-- Tiempo de generación: 17-02-2020 a las 06:26:50
 -- Versión del servidor: 10.3.16-MariaDB
 -- Versión de PHP: 7.1.30
 
@@ -53,7 +53,27 @@ INSERT INTO `compras` (`id_compras`, `cantidad`, `descuento`, `iva`, `total`, `k
 (7, '7.00', '9.00', '25.68', '186.21', 2, 1, 1),
 (8, '1.00', '3.00', '8.55', '62.00', 1, 1, 2),
 (9, '2.00', '5.00', '7.66', '55.54', 2, 1, 2),
-(10, '3.00', '6.00', '11.37', '82.43', 2, 1, 2);
+(10, '3.00', '6.00', '11.37', '82.43', 2, 1, 2),
+(11, '1.00', '3.00', '8.55', '62.00', 1, 1, 3),
+(12, '2.00', '4.00', '8.60', '62.36', 3, 1, 3),
+(13, '3.00', '5.00', '11.49', '83.31', 2, 1, 3),
+(14, '4.00', '6.00', '33.15', '240.32', 1, 1, 3),
+(15, '5.00', '7.00', '20.83', '151.03', 3, 1, 3),
+(16, '6.00', '8.00', '48.66', '352.82', 1, 1, 3),
+(17, '7.00', '9.00', '25.68', '186.21', 2, 1, 3),
+(18, '1.00', '5.00', '8.38', '60.72', 1, 2, 8),
+(19, '1.00', '5.00', '4.26', '30.86', 3, 2, 8),
+(20, '1.00', '3.00', '8.55', '62.00', 1, 2, 9),
+(21, '2.00', '4.00', '8.60', '62.36', 3, 2, 9),
+(22, '3.00', '5.00', '11.49', '83.31', 2, 2, 9),
+(23, '4.00', '6.00', '16.84', '122.12', 3, 2, 9),
+(24, '1.00', '1.00', '4.44', '32.16', 3, 2, 10),
+(25, '2.00', '2.00', '7.90', '57.29', 2, 2, 10),
+(26, '3.00', '3.00', '13.04', '94.52', 3, 2, 10),
+(27, '1.00', '5.00', '8.38', '60.72', 1, 1, 13),
+(28, '2.00', '4.00', '8.60', '62.36', 3, 1, 13),
+(29, '3.00', '3.00', '11.73', '85.07', 2, 1, 13),
+(30, '4.00', '2.00', '34.56', '250.55', 1, 1, 13);
 
 -- --------------------------------------------------------
 
@@ -83,7 +103,8 @@ CREATE TABLE `datosfiscales` (
 --
 
 INSERT INTO `datosfiscales` (`kcvedatosfiscales`, `orfc`, `orazonsocial`, `rcveestado`, `rcvemunicipio`, `odireccion`, `ocolonia`, `ocodigopostal`, `oemail`, `istatus`, `ifecins`, `iusrins`, `ifecmod`, `iusrmod`) VALUES
-(1, 'BABF860315LE4', 'FERNANDO BARRON BUCIO', 15, 195, 'ISABEL LA CATOLICA #503-D', 'SAN SEBASTIAN', '50150', 'fernandobarron@solei-mx.com', 'A', '2019-10-10 00:00:00', NULL, NULL, NULL);
+(1, 'BABF860315LE4', 'FERNANDO BARRON BUCIO', 15, 195, 'ISABEL LA CATOLICA #503-D', 'SAN SEBASTIAN', '50150', 'fernandobarron@solei-mx.com', 'A', '2019-10-10 00:00:00', NULL, NULL, NULL),
+(2, 'RAMOMARCRU', 'RAMÓN MARTÍNEZ CRUZ', 7, 978, 'Col. Flor de abril Lot. 14 Mz. 42', 'Flor de abril', '60950', 'cruzcruzram@hotmail.com', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2646,7 +2667,12 @@ CREATE TABLE `otros_datos` (
 
 INSERT INTO `otros_datos` (`id_otros`, `fecha_expedicion`, `folio`, `forma_pago`, `cfdi`, `metodo_pago`, `n_cuenta`, `kcvedatosfiscales`) VALUES
 (1, '2020-02-15 18:08:58', 1, '01', 'G01', 'PUE', 123, 1),
-(2, '2020-02-15 18:08:59', 2, '01', 'G01', 'PUE', 12345678, 1);
+(2, '2020-02-15 18:08:59', 2, '01', 'G01', 'PUE', 12345678, 1),
+(3, '2020-02-15 20:22:54', 3, '01', 'G01', 'PUE', 123, 1),
+(8, '2020-02-15 20:56:40', 4, '01', 'G01', 'PUE', 123456789, 2),
+(9, '2020-02-16 15:29:18', 5, '01', 'G01', 'PUE', 0, 2),
+(10, '2020-02-16 15:54:39', 6, '01', 'G01', 'PUE', 0, 2),
+(13, '2020-02-16 22:26:29', 9, '01', 'G01', 'PUE', 2147483647, 1);
 
 -- --------------------------------------------------------
 
@@ -2728,13 +2754,13 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id_compras` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_compras` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `datosfiscales`
 --
 ALTER TABLE `datosfiscales`
-  MODIFY `kcvedatosfiscales` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `kcvedatosfiscales` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `estados`
@@ -2752,7 +2778,7 @@ ALTER TABLE `municipio`
 -- AUTO_INCREMENT de la tabla `otros_datos`
 --
 ALTER TABLE `otros_datos`
-  MODIFY `id_otros` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_otros` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
