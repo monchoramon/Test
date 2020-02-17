@@ -10,11 +10,18 @@
 	$("#estado").on({
 
 		change:function(){
-			console.log( this.value )
-			mandar_datos('', this.value, 'main', 1, 3, null)
+			cambiar_municipio(this)
+		},
+		click:function(){
+			cambiar_municipio(this)
 		}
 
 	})
+
+	function cambiar_municipio(_this){
+		console.log( _this.value )
+		mandar_datos('', _this.value, 'main', 1, 3, null)
+	}
 
 	//autocompletado, index para buscar con LIKE
 	$(document).ready(function(){
@@ -79,17 +86,27 @@
 		}
 
 		$("#btn_save_dat_fis").click(function(){
+			cambiar_opcion( 8 );
 			mandar_datos('#data_server', '', 'main', 1, 8, null)
 		})
 
-			$(document).on('click', '#eliminar_concepto', function(){
-				eliminar_fila_tabla(this)
-				campos_cantidad_descuento(this)
+			$("#guardar_compra").click(function(){
+				cambiar_opcion( 9 );
+				mandar_datos('#data_server', '', 'main', 1, 9, null)
 			})
 
-				$(document).on('click', '#botonAgregarConcepto', function(){
-					agregar_concepto( this )
+				$("#generar_factura").click(function(){
+					mandar_datos('', $("#rfc").val(), 'main', 1, 10, null)
 				})
+
+					$(document).on('click', '#eliminar_concepto', function(){
+						eliminar_fila_tabla(this)
+						campos_cantidad_descuento(this)
+					})
+
+						$(document).on('click', '#botonAgregarConcepto', function(){
+							agregar_concepto( this )
+						})
 
 		function eliminar_fila_tabla( _this ){
 
@@ -264,11 +281,9 @@
 				return value
 		}
 
-		$("#guardar_compra").click(function(){
-			var opcion = $("input[name=opcion]")[0].value = 9
-			mandar_datos('#data_server', '', 'main', 1, 9, null)
-		})
-
+		function cambiar_opcion( opcion ){
+			$("input[name=opcion]")[0].value = opcion
+		}
 
 
 

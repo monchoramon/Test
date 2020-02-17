@@ -130,6 +130,6 @@
 	}
 
 	function gurdar_datos_fiscales( request ){
-		console.log( request )
+		alert(request.info);
 	}
 

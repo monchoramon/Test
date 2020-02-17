@@ -39,17 +39,18 @@
 
 		case 8:
 			$main->gurdar_datos_fiscales( @$_POST['rfc'], 
-									      @$_POST['razon_social'], 
-									      @$_POST['email'], 
+									      @$_POST['razon_social'],
 									      @$_POST['estado'], 
 									      @$_POST['municipio'], 
 									      @$_POST['direccion'], 
 									      @$_POST['colonia'], 
-									      @$_POST['codigo_postal'] );		
+									      @$_POST['codigo_postal'],
+									      @$_POST['email']
+									       );		
 		break;
 
 		case 9:
-		
+
 			$main->guardar_factura( @$_POST['cantidad'], 
 								    @$_POST['descuento'], 
 								    @$_POST['iva'], 
@@ -60,17 +61,10 @@
 								    @$_POST['numero_cuenta'],
 								    @$_POST['uso_cfdi'],
 								    @$_POST['metodo_pago'] );
+		break;
 
-		// print_r(json_encode( array( @$_POST['cantidad'], 
-		// 						    @$_POST['descuento'], 
-		// 						    @$_POST['iva'], 
-		// 						    @$_POST['total'], 
-		// 						    @$_POST['rfc'], 
-		// 						    @$_POST['clave'],
-		// 						    @$_POST['forma_pago'],
-		// 						    @$_POST['numero_cuenta'],
-		// 						    @$_POST['uso_cfdi'],
-		// 						    @$_POST['metodo_pago'] ) ));
+		case 10:
+			$main->generar_factura( @$_POST['params'] );
 		break;
 
 	}

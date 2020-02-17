@@ -50,8 +50,13 @@ function mandar_datos( form, params, directorio, method, opc_server, prop_cam_au
 						break;
 
 						case 9:
-							console.log( request )
-							//guardar_factura()
+							if( request ){
+								alert('Conceptos registrados correctamente.');
+							}
+						break;
+
+						case 10:
+							console.log( request );
 						break;
 
 				}
