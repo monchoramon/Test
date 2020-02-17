@@ -83,15 +83,30 @@ $mpdf->WriteHTML("
 	");
 
 //sección C
-$session_c = $_SESSION['seccion_c'][0];
 
-$oclave         = $session_c['oclave'];
-$onombre        = $session_c['onombre'];
-$cantidad       = $session_c['cantidad'];
-$ocostounitario = $session_c['ocostounitario'];
-$descuento      = $session_c['descuento'];
-$iva            = $session_c['iva'];
-$total          = $session_c['total'];
+for($x = 0; $x < sizeof( $_SESSION['seccion_c'] ); $x++ ){	
+
+	$session_c = $_SESSION['seccion_c'][$x];
+
+	$oclave         = $session_c['oclave'];
+	$onombre        = $session_c['onombre'];
+	$cantidad       = $session_c['cantidad'];
+	$ocostounitario = $session_c['ocostounitario'];
+	$descuento      = $session_c['descuento'];
+	$iva            = $session_c['iva'];
+	$total          = $session_c['total'];
+
+	@$data .=  "<tr>
+		        <td>$oclave</td>
+		        <td>$onombre</td>
+		        <td>$cantidad</td>
+		        <td>$ocostounitario</td>
+		        <td>$descuento</td>
+		        <td>$iva</td>
+		        <td>$total</td>
+	          </tr>";
+
+}	
 
 $mpdf->WriteHTML("<table border='1' style='border-collapse: collapse; margin-top:25px;' width='100%'>
                 <thead>
@@ -106,17 +121,8 @@ $mpdf->WriteHTML("<table border='1' style='border-collapse: collapse; margin-top
                     </tr>
                 </thead>
                 <tbody>
-                    	
-                    <tr>
-                        <td>$oclave</td>
-                        <td>$onombre</td>
-                        <td>$cantidad</td>
-                        <td>$ocostounitario</td>
-                        <td>$descuento</td>
-                        <td>$iva</td>
-                        <td>$total</td>
-                    </tr>
-
+					@$data
                 </tbody>
             </table>");
+
 $mpdf->Output();
