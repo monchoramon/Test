@@ -56,7 +56,9 @@ function mandar_datos( form, params, directorio, method, opc_server, prop_cam_au
 						break;
 
 						case 10:
-							console.log( request );
+							if( request.tipe ){
+								window.open("http://test_v1.com/factura/", "_blank");
+							}
 						break;
 
 				}
