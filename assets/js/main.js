@@ -188,26 +188,118 @@
 		//Calculos facturación
 
 		$(document).on('keyup', '#cantidad', function(){
-			campos_cantidad_descuento( this )
+			campos_cantidad_descuento( this, null )
 		})
 
 		$(document).on('keyup', '#descuento', function(){
-			campos_cantidad_descuento( this )
+			campos_cantidad_descuento( this, null )
 		})
 
-		function campos_cantidad_descuento( _this ){
+				$("#cambiar_descuento").click(function(){
+					activar_modal("#modal_descuento");
+				})
 
-			var tr_table    = $(_this).parent().parent().children(),
-				cantidad    = tr_table[2].firstChild.value,
-				costo_unit  = tr_table[3].firstChild.value,
-				descuento   = tr_table[4].firstChild.value
+			 	$("#cambiar_des").click(function(){
+			 		aplicar_descuentos_productos()
+			 		hidden_modal("#modal_descuento")
+			 	})
 
-			if( cantidad && costo_unit && descuento){
-				calcular_datos_factura( cantidad, costo_unit, descuento, tr_table, _this )
+			 	function aplicar_descuentos_productos(){
+
+			 		var rows = get_numero_filas("#conceptos_table", 0).length, ctn = 0
+
+			 		for(var x = 0; x < rows; x++){
+
+			 			var row = tabla("#conceptos_table").rows[x].cells[4]
+
+			 			if( row.firstChild.value = $("#otro_descuento")[0].value ){
+		 					ctn++;
+			 			}
+
+			 		}
+
+
+			 			if( ctn == rows ){
+			 				get_numero_filas( "#conceptos_table", 1 ) // main
+			 			}
+
+			 			console.log( ctn );
+
+			 	}
+
+			 	function tabla(id){
+			 		return $(id+" tbody")[0]
+			 	}
+
+			 	function get_numero_filas( id, tipe ){
+
+			 		var filas = tabla(id).rows;
+		 			
+		 			if( tipe ){
+		 				get_celdas_por_fila( filas, id );
+		 			}else{
+		 				return filas;
+		 			}
+
+			 	}
+
+			 	function get_celdas_por_fila( filas, id ){
+
+			 		//var length_celdas = tabla(id).rows[0].cells.length;
+
+			 		for (var i = 0; i < filas.length; i++) {
+
+			 			/*for(var x = 0; x < length_celdas; x++){
+
+			 				if( x == 2 ){
+									var cantidad = get_val_inputs_por_id_tabla(id, i, x);
+			 				}else{
+			 					if( x == 3 ){
+									var costo_unit = get_val_inputs_por_id_tabla(id, i, x);
+			 					}else{
+			 						if( x == 4 ){
+			 						var descuento = get_val_inputs_por_id_tabla(id, i, x);	
+			 						}
+			 					}
+			 				}
+
+			 			}*/
+
+			 			campos_cantidad_descuento( null, get_val_inputs_por_id_tabla(id, i, x = null) )
+
+			 		}
+
+
+
+			 	}
+
+			 	function get_val_inputs_por_id_tabla( id, i, x ){
+			 		//var value = tabla(id).rows[i].cells[x].firstChild.value
+			 		var row = tabla(id).rows[i]
+			 		return row
+			 	}
+
+		function campos_cantidad_descuento( _this, row ){
+
+			if( _this ){
+				var tr_table = $(_this).parent().parent().children()
 			}else{
-				console.log(false)
+				var tr_table = row.cells
+				 _this = null
 			}
 
+			var cantidad    = tr_table[2].firstChild.value,
+			    costo_unit  = tr_table[3].firstChild.value,
+			    descuento   = tr_table[4].firstChild.value
+
+
+				if( cantidad && costo_unit && descuento){
+					calcular_datos_factura( cantidad, costo_unit, descuento, tr_table, _this )
+				}else{
+					console.log(false)
+				}
+
+			console.log( cantidad, costo_unit, descuento, tr_table, _this );
 
 		}
 
@@ -220,9 +312,13 @@
 				tr_table[5].firstChild.value = _iva
 				tr_table[6].firstChild.value = ( _total_ini - _descuento_aplicado) + _iva
 
-			var importe = 0, _descuento = 0, subtotal = 0, iva_ = 0, total = 0,
-				rows = $(_this).parent().parent().parent().children(),
-				aux_td = 0,
+			var importe = 0, _descuento = 0, subtotal = 0, iva_ = 0, total = 0, aux_td = 0
+
+				if( _this ){
+					rows = $(_this).parent().parent().parent().children()
+				}else{
+					rows = get_numero_filas( "#conceptos_table", 0 );
+				}
 
 				cantidad_aux = 0, costo_unit_aux = 0
 
@@ -264,7 +360,7 @@
 				$('#_iva')[0].innerText = '$'+iva_
 				$('#_total')[0].innerText = '$'+total
 
-					console.log( importe, _descuento, subtotal, iva_, total )
+			console.log( importe, _descuento, subtotal, iva_, total, rows )
 
 			//console.log( rows[0].children.length - 1 )
 
@@ -283,6 +379,17 @@
 
 		function cambiar_opcion( opcion ){
 			$("input[name=opcion]")[0].value = opcion
+		}
+
+		function activar_modal(id){
+			$(id).modal({
+				backdrop: 'static',
+				keyboard:false
+			}).show();
+		}
+
+		function hidden_modal(id){
+			$(id).modal('hide')
 		}
 
 
