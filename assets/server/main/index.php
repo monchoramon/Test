@@ -60,7 +60,17 @@
 								    @$_POST['forma_pago'],
 								    @$_POST['numero_cuenta'],
 								    @$_POST['uso_cfdi'],
-								    @$_POST['metodo_pago'] );
+								    @$_POST['metodo_pago'],
+								    //datos fiscales
+								    @$_POST['rfc'], 
+							        @$_POST['razon_social'],
+							        @$_POST['estado'], 
+							        @$_POST['municipio'], 
+							        @$_POST['direccion'], 
+							        @$_POST['colonia'], 
+							        @$_POST['codigo_postal'],
+							        @$_POST['email']
+								     );
 		break;
 
 		case 10:

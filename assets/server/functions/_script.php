@@ -214,7 +214,8 @@ class main{
 			$stmt->bindParam(':oemail', $email);
 
 			if( $stmt->execute() ){
-				print_r(json_encode( array('info'=>'Registro generado correctamente.') ));
+				// print_r(json_encode( array('info'=>'Registro generado correctamente.') ));
+				return true;
 			}else{
 				print_r(json_encode( array('info'=>'Error interno del servidor.') ));
 			}
@@ -270,41 +271,55 @@ class main{
 									$forma_pago,
 									$numero_cuenta,
 									$uso_cfdi,
-									$metodo_pago
+									$metodo_pago,
+									//datos fiscales
+									$_rfc,
+									$razon_social,
+									$estado,
+									$municipio,
+									$direccion,
+									$colonia,
+									$codigo_postal,
+									$email
 								   ){
 
-		$id_rfc = main::insert_otros_datos( $forma_pago, $uso_cfdi, $metodo_pago, $numero_cuenta, $rfc );
 
-		if( $id_rfc ){
-			 $this->id_otros = main::get_id_otros_datos( $id_rfc );
-		}
+		if ( main::gurdar_datos_fiscales( $_rfc, $razon_social, $estado, $municipio, $direccion, $colonia, $codigo_postal, $email ) ){
 
-		if( $this->id_otros ){		
+			$id_rfc = main::insert_otros_datos( $forma_pago, $uso_cfdi, $metodo_pago, $numero_cuenta, $rfc );
 
-			$data = array( $cantidad, $descuento, $iva, $total );
-			$claves = main::get_id_producto( $clave );
-
-			//generar arreglo unidimensional de ids, clave producto
-			foreach ($claves as $key => $value) {
-				foreach ($value as $key => $value) {
-					$data[4][$key] = $value;
-				}
+			if( $id_rfc ){
+				 $this->id_otros = main::get_id_otros_datos( $id_rfc );
 			}
 
-				foreach ($cantidad as $key_a => $value) {
-					foreach ($data as $key_b => $value) {
-						$data_final[$key_a][$key_b] = $data[$key_b][$key_a];
-						$data_final[$key_a][$key_b+1] = main::get_id_datos_fiscales( $rfc );
+			if( $this->id_otros ){		
+
+				$data = array( $cantidad, $descuento, $iva, $total );
+				$claves = main::get_id_producto( $clave );
+
+				//generar arreglo unidimensional de ids, clave producto
+				foreach ($claves as $key => $value) {
+					foreach ($value as $key => $value) {
+						$data[4][$key] = $value;
 					}
 				}
 
-					foreach ($data_final as $key_a => $value_a) {
-						main::insertar_conceptos( $key_a, $data_final );
+					foreach ($cantidad as $key_a => $value) {
+						foreach ($data as $key_b => $value) {
+							$data_final[$key_a][$key_b] = $data[$key_b][$key_a];
+							$data_final[$key_a][$key_b+1] = main::get_id_datos_fiscales( $rfc );
+						}
 					}
 
-				        //main::insertar_conceptos( $key_a, $data_final );
+						foreach ($data_final as $key_a => $value_a) {
+							main::insertar_conceptos( $key_a, $data_final );
+						}
 
-						//print_r(json_encode( array( $data_final, $this->id_otros ) ));
+					        //main::insertar_conceptos( $key_a, $data_final );
+
+							//print_r(json_encode( array( $data_final, $this->id_otros ) ));
+
+			}
 
 		}
 
@@ -356,8 +371,7 @@ class main{
 			$fecha  = date("Y-m-d H:i:s");
 			$id_rfc = (int) main::get_id_datos_fiscales( $rfc );
 			$folio  = main::folio();
-			$numero_cuenta = (int) $numero_cuenta;
-
+			
 			$stmt = $this->conexion->prepare("INSERT INTO otros_datos 
 						  (	fecha_expedicion,
 						  	folio,
@@ -604,7 +618,7 @@ class main{
 						$_SESSION["seccion_a"] = $this->seccion_a;
 						$_SESSION["seccion_b"] = $this->seccion_b;
 						$_SESSION["seccion_c"] = $this->seccion_c;
-						print_r(json_encode( array( $this->seccion_a, $this->seccion_b, $this->seccion_c) ));
+						print_r(json_encode( array( $this->seccion_a, $this->seccion_b, $this->seccion_c, 'tipe' => true) ));
 					}
 
 			}
