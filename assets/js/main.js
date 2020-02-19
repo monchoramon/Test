@@ -86,8 +86,8 @@
 		}
 
 		$("#btn_save_dat_fis").click(function(){
-			cambiar_opcion( 8 );
-			mandar_datos('#data_server', '', 'main', 1, 8, null)
+			// cambiar_opcion( 8 );
+			//mandar_datos('#data_server', '', 'main', 1, 8, null)
 		})
 
 			$("#guardar_compra").click(function(){
@@ -107,6 +107,7 @@
 						$(document).on('click', '#botonAgregarConcepto', function(){
 							agregar_concepto( this )
 						})
+
 
 		function eliminar_fila_tabla( _this ){
 
@@ -197,12 +198,75 @@
 
 				$("#cambiar_descuento").click(function(){
 					activar_modal("#modal_descuento");
-				})
+				})	
 
 			 	$("#cambiar_des").click(function(){
 			 		aplicar_descuentos_productos()
 			 		hidden_modal("#modal_descuento")
 			 	})
+
+			 	$("#cambiar_descuento_concepto").click(function(){
+					activar_modal("#modal_descuento_total_concepto");
+				})
+
+				$("#cambiar_des_tot").click(function(){
+					var dto_por_total = $("#otro_dto_total")[0].value
+					asignar_descuentos_a_total(dto_por_total)
+					hidden_modal("#otro_dto_total")
+				})
+
+				function asignar_descuentos_a_total( dto_por_total ){
+
+					var n_filas = get_numero_filas( "#conceptos_table", 0 );
+
+					var cantidad_descuento = ( dto_por_total / n_filas.length );
+					var des_a_aplicar = [];
+					var suma_descuento = 0;
+					var _cantidad_descuento = 0;
+
+					for(var x = 0; x < n_filas.length; x++){
+
+						var total = n_filas[x].cells[6].children[0].value //valor del input por fila, pos. 6
+
+						if( total < cantidad_descuento && ( dto_por_total != cantidad_descuento ) ){
+							des_a_aplicar[x] = ( cantidad_descuento - total )
+						}else{
+							if( dto_por_total == cantidad_descuento  ){
+								alert('Al producto de la fila '+( x+1)+' no se le pudo asignar el descuento.' );
+							}else{
+								des_a_aplicar[x] =  ( total - cantidad_descuento )
+							}
+						}
+
+							suma_descuento += des_a_aplicar[x];
+
+					}
+
+						if( suma_descuento < cantidad_descuento ){
+
+							_cantidad_descuento = ( cantidad_descuento - suma_descuento ) / n_filas.length;
+
+							for(var y = 0; y < des_a_aplicar.length; y++){
+								var descuento = des_a_aplicar[y];
+								descuento = descuento + _cantidad_descuento;
+							}
+
+						}
+
+				var ctn = 0
+
+				for(var x = 0; x < n_filas.length; x++){
+					n_filas[x].cells[6].children[0].value = des_a_aplicar[x]
+					ctn++
+				}
+
+					// if( ctn == n_filas.length ){
+					// 	get_numero_filas( "#conceptos_table", 1 )
+					// 	//console.log( dto_por_total, n_filas.length, cantidad_descuento, des_a_aplicar, suma_descuento, _cantidad_descuento );
+					// }
+
+
+				}
 
 			 	function aplicar_descuentos_productos(){
 
@@ -236,7 +300,8 @@
 			 		var filas = tabla(id).rows;
 		 			
 		 			if( tipe ){
-		 				get_celdas_por_fila( filas, id );
+		 				get_celdas_por_fila( filas, id )
+		 				console.log('entro')
 		 			}else{
 		 				return filas;
 		 			}
@@ -299,7 +364,8 @@
 					console.log(false)
 				}
 
-			console.log( cantidad, costo_unit, descuento, tr_table, _this );
+			//console.log( cantidad, costo_unit, descuento, tr_table, _this );
+			console.log( 10 );
 
 		}
 
@@ -360,9 +426,9 @@
 				$('#_iva')[0].innerText = '$'+iva_
 				$('#_total')[0].innerText = '$'+total
 
-			console.log( importe, _descuento, subtotal, iva_, total, rows )
+			//console.log( importe, _descuento, _descuento_aplicado, subtotal, iva_, total, rows )
 
-			//console.log( rows[0].children.length - 1 )
+			console.log( 20 );
 
 		}
 
